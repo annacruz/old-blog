@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Programação | Anna Cruz]]></title>
+  <link href="http://anna-cruz.com/blog/categories/programacao/atom.xml" rel="self"/>
+  <link href="http://anna-cruz.com/"/>
+  <updated>2014-06-24T16:04:26-03:00</updated>
+  <id>http://anna-cruz.com/</id>
+  <author>
+    <name><![CDATA[Anna Cruz]]></name>
+    <email><![CDATA[anna.cruz@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Validação De Mais De Um Campo Usando JSF E Primefaces]]></title>
+    <link href="http://anna-cruz.com/blog/2013/08/26/validacao-de-mais-de-um-campo-usando-jsf-e-primefaces/"/>
+    <updated>2013-08-26T11:11:00-03:00</updated>
+    <id>http://anna-cruz.com/blog/2013/08/26/validacao-de-mais-de-um-campo-usando-jsf-e-primefaces</id>
+    <content type="html"><![CDATA[<p>Não sei se todos que me conhecem sabem, mas eu atualmente trabalho programando em Java. Particularmente esta não é a minha linguagem favorita, mas tem seu uso.</p>
+
+<p>Bom, como já diz o título vou falar aqui de como fazer uma validação de mais de um campo tendo como condicional um terceiro campo usando JSF e PrimeFaces. Para isso vou fazer um simples validator do java. Bom mãos a obra?</p>
+
+<!-- more -->
+
+
+<p>No nosso formulário de contato existem três caixas de selectonemenu sendo respectivamente para país, estado e cidade. A validação é ser feita é que se o país for Brasil os campos de estado e cidade devem ser obrigatórios, ou seja, múltiplos campos são necessários para a nossa validação.</p>
+
+<p>Originalmente vamos ter o nosso formulário deste jeito:</p>
+
+<p><em>código 1: form_contato.xhtml</em></p>
+
+<p>{% codeblock lang:java %}</p>
+
+<p>&lt;h:form>
+  <!-- Parte do código foi suprimida apenas deixamos os campos essenciais para o nosso exemplo-->
+  &lt;h:outputLabel value=&ldquo;País: &rdquo; for=&ldquo;pais&rdquo; />
+  &lt;p:selectOneMenu id=&ldquo;pais&rdquo; value=&ldquo;#{contatoMB.idPais}&rdquo; styleClass=&ldquo;label_280&rdquo; required=&ldquo;true&rdquo;>
+    &lt;f:selectItems id=&ldquo;listaPais&rdquo; value=&ldquo;#{contatoMB.listPaises}&rdquo; var=&ldquo;pais&rdquo;
+      itemLabel=&ldquo;#{pais.nome}&rdquo; itemValue=&ldquo;#{pais.id}&rdquo; />
+    &lt;p:ajax update=&ldquo;uf cidade&rdquo; listener=&ldquo;#{contatoMB.changePais()}&rdquo; />
+  &lt;/p:selectOneMenu>
+  &lt;p:message for=&ldquo;pais&rdquo; /></p>
+
+<p>  &lt;h:outputLabel value=&ldquo;Estado: &rdquo; for=&ldquo;uf&rdquo; />
+  &lt;p:selectOneMenu id=&ldquo;uf&rdquo; value=&ldquo;#{contatoMB.ufSigla}&rdquo; required=&ldquo;true&rdquo; disabled=&ldquo;#{not contatoMB.isBrasil()&rdquo;}>
+    &lt;f:selectItem itemLabel=&ldquo;Selecione a UF&rdquo; itemValue=&ldquo;&rdquo; />
+    &lt;f:selectItems id=&ldquo;listaUfs&rdquo; value=&ldquo;#{contatoMB.listUFs}&rdquo; var=&ldquo;uf&rdquo; itemLabel=&ldquo;#{uf.nome}&rdquo;
+      itemValue=&ldquo;#{uf.sigla}&rdquo; />
+    &lt;p:ajax update=&ldquo;cidade&rdquo; listener=&ldquo;#{contatoMB.changeUF()}&rdquo; />
+  &lt;/p:selectOneMenu>
+  &lt;p:message for=&ldquo;uf&rdquo; /></p>
+
+<p>  &lt;h:outputLabel value=&ldquo;Cidade&rdquo; for=&ldquo;cidade&rdquo; />
+  &lt;p:selectOneMenu id=&ldquo;cidade&rdquo; value=&ldquo;#{contatoMB.idCidade}&rdquo; required=&ldquo;true&rdquo; disabled=&ldquo;#{not contatoMB.isBrasil()&rdquo;}>
+    &lt;f:selectItem itemLabel=&ldquo;Selecione a Cidade&rdquo; itemValue=&ldquo;&rdquo; />
+    &lt;f:selectItems id=&ldquo;listaCidades&rdquo; value=&ldquo;#{contatoMB.listCidades}&rdquo; var=&ldquo;cidade&rdquo;
+      itemLabel=&ldquo;#{cidade.nome}&rdquo; itemValue=&ldquo;#{cidade.id}&rdquo; />
+  &lt;/p:selectOneMenu>
+  &lt;p:message for=&ldquo;cidade&rdquo; />
+&lt;/h:form>
+{% endcodeblock %}</p>
+
+<p>OBS: Não é o objetivo aqui explicar como fazer o ajax para ao mudar de país habilitar ou desabilitar a validação de estado e cidade, nem também o carregamento das cidades ao trocar de estado. Não é muito difícil fazer isso e caso seja necessário eu faço um post sobre isso dps =)</p>
+
+<p>Para utilizarmos o validator primeiramente vamos fazer um binding dos campos de país, estado e cidade para atributos que ficam incluidos dentro de um input hidden isso tudo no próprio formulário. Isto se faz necessário para que o validator consiga pegar o componente completo, e assim, consigamos deixar o campo destacado em vermelho após a validação. Dentro desse input hidden também vamos apontar qual o nome do nosso validador. Com estas modificações o nosso xhtml vai ficar assim:</p>
+
+<p><em>código 2: form_contato.xhtml</em>
+{% codeblock lang:java %}</p>
+
+<p>&lt;h:form>
+  <!-- Parte do código foi suprimida apenas deixamos os campos essenciais para o nosso exemplo--></p>
+
+<p>  &lt;h:inputHidden value=&ldquo;true&rdquo; id=&ldquo;camposValidacao&rdquo;>
+    &lt;f:validator validatorId=&ldquo;paisEstadoCidadeValidator&rdquo; />
+    &lt;f:attribute name=&ldquo;paisVal&rdquo; value=&ldquo;#{paisVal}&rdquo; />
+    &lt;f:attribute name=&ldquo;estadoVal&rdquo; value=&ldquo;#{estadoVal}&rdquo; />
+    &lt;f:attribute name=&ldquo;cidadeVal&rdquo; value=&ldquo;#{cidadeVal}&rdquo; />
+  &lt;/h:inputHidden></p>
+
+<p>  &lt;h:outputLabel value=&ldquo;País: &rdquo; for=&ldquo;pais&rdquo; />
+  &lt;p:selectOneMenu id=&ldquo;pais&rdquo; value=&ldquo;#{contatoMB.idPais}&rdquo; styleClass=&ldquo;label_280&rdquo; required=&ldquo;true&rdquo; binding=&ldquo;{paisVal}&rdquo;>
+    &lt;f:selectItems id=&ldquo;listaPais&rdquo; value=&ldquo;#{contatoMB.listPaises}&rdquo; var=&ldquo;pais&rdquo;
+      itemLabel=&ldquo;#{pais.nome}&rdquo; itemValue=&ldquo;#{pais.id}&rdquo; />
+    &lt;p:ajax update=&ldquo;uf cidade&rdquo; listener=&ldquo;#{contatoMB.changePais()}&rdquo; />
+  &lt;/p:selectOneMenu>
+  &lt;p:message for=&ldquo;pais&rdquo; /></p>
+
+<p>  &lt;h:outputLabel value=&ldquo;Estado: &rdquo; for=&ldquo;uf&rdquo; />
+  &lt;p:selectOneMenu id=&ldquo;uf&rdquo; value=&ldquo;#{contatoMB.ufSigla}&rdquo; required=&ldquo;true&rdquo; disabled=&ldquo;#{not contatoMB.isBrasil()&rdquo;} binding=&ldquo;{estadoVal}&rdquo;>
+    &lt;f:selectItem itemLabel=&ldquo;Selecione a UF&rdquo; itemValue=&ldquo;&rdquo; />
+    &lt;f:selectItems id=&ldquo;listaUfs&rdquo; value=&ldquo;#{contatoMB.listUFs}&rdquo; var=&ldquo;uf&rdquo; itemLabel=&ldquo;#{uf.nome}&rdquo;
+      itemValue=&ldquo;#{uf.sigla}&rdquo; />
+    &lt;p:ajax update=&ldquo;cidade&rdquo; listener=&ldquo;#{contatoMB.changeUF()}&rdquo; />
+  &lt;/p:selectOneMenu>
+  &lt;p:message for=&ldquo;uf&rdquo; /></p>
+
+<p>  &lt;h:outputLabel value=&ldquo;Cidade&rdquo; for=&ldquo;cidade&rdquo; />
+  &lt;p:selectOneMenu id=&ldquo;cidade&rdquo; value=&ldquo;#{contatoMB.idCidade}&rdquo; required=&ldquo;true&rdquo; disabled=&ldquo;#{not contatoMB.isBrasil()&rdquo;} binding=&ldquo;{cidadeVal}&rdquo;>
+    &lt;f:selectItem itemLabel=&ldquo;Selecione a Cidade&rdquo; itemValue=&ldquo;&rdquo; />
+    &lt;f:selectItems id=&ldquo;listaCidades&rdquo; value=&ldquo;#{contatoMB.listCidades}&rdquo; var=&ldquo;cidade&rdquo;
+      itemLabel=&ldquo;#{cidade.nome}&rdquo; itemValue=&ldquo;#{cidade.id}&rdquo; />
+  &lt;/p:selectOneMenu>
+  &lt;p:message for=&ldquo;cidade&rdquo; />
+&lt;/h:form>
+{% endcodeblock %}</p>
+
+<p>Jóia! Agora vamos para a parte divertida: fazer o validador. Nossa classe validadora vai simplismente implementar a interface Validator do javax.faces e incluir os nossos métodos de validação. Ela vai ficar assim:</p>
+
+<p><em>código 3: PaisCidadeEstadoValidator.java</em></p>
+
+<p>{% codeblock lang:java %}
+// Os imports foram suprimidos deixando apenas o principal da classe.
+// É importante fazer a anotação do FacesValidator pois é apartir dela que o xhtml reconhece quem é o validator a ser utilizado.</p>
+
+<p>@FacesValidator(value = &ldquo;paisEstadoCidadeValidator&rdquo;)
+public class PaisEstadoCidadeValidator implements Validator {</p>
+
+<pre><code>// Injeção do ResourceBundle para que possamos colocar a mensagem de validação dentro do &lt;p:message&gt;
+@Inject
+@Name(value = "ValidationMessages")
+ResourceBundle validationBundle;
+
+// Esta é a função que faz a validação de fato.
+@Override
+public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+
+    // Primeiro eu pego todos os componentes que estão no xhtml, note que eu pego eles através do seu id que foi
+    // referenciado dentro do atributo incluido no input hidden.
+    UIInput inputPais   = (UIInput) component.getAttributes().get("paisVal");
+    UIInput inputEstado = (UIInput) component.getAttributes().get("estadoVal");
+    UIInput inputCidade = (UIInput) component.getAttributes().get("cidadeVal");
+
+    // Aqui está um detalhe importante: se não vier nada dentro dos atributos correspondentes a estado e cidade
+    // é sinal de que os campos estavam desabilitados em tela, portanto, o país não é Brasil. Cabe lembrar aqui que
+    // não faz parte do escopo deste post como foi feita essa validação do país ser ou não Brasil.
+    if (inputEstado.getSubmittedValue() == null|| inputCidade.getSubmittedValue() == null){
+        return;
+    }
+
+    // Agora é só pegar os atributos para podermos fazer as validações em si.
+    String pais   = inputPais.getSubmittedValue().toString();
+    String estado = inputEstado.getSubmittedValue().toString();
+    String cidade = inputCidade.getSubmittedValue().toString();
+
+    // Variáveis que sempre permanecem as mesmas e servem para o lançamento das mensagens de erro.
+    String errorMsg = "Campo obrigatório.";
+    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg, errorMsg);
+
+    // Aqui está a validação em si
+    if (pais.equals("Brasil")) {
+        if (estado.isEmpty()) {
+            inputEstado.setValid(false);
+            context.addMessage(inputEstado.getClientId(), msg);
+        }
+        if (cidade.isEmpty()) {
+            inputCidade.setValid(false);
+            context.addMessage(inputCidade.getClientId(), msg);
+        }
+    }
+}
+</code></pre>
+
+<p>}</p>
+
+<p>{% endcodeblock %}</p>
+
+<p>Pronto acabou! Sim é só isso que você precisa pra poder fazer essa validação combinada com mais de um campo =)</p>
+
+<p>Viu como é super simples no fim das contas? No próximo post vou fazer a validação a partir de um evento ajax.</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: E-cpf | Anna Cruz]]></title>
+  <link href="http://anna-cruz.com/blog/categories/e-cpf/atom.xml" rel="self"/>
+  <link href="http://anna-cruz.com/"/>
+  <updated>2014-06-24T16:04:26-03:00</updated>
+  <id>http://anna-cruz.com/</id>
+  <author>
+    <name><![CDATA[Anna Cruz]]></name>
+    <email><![CDATA[anna.cruz@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Instalando Token PCKS#11 No Mac]]></title>
+    <link href="http://anna-cruz.com/blog/2014/03/18/instalando-token-pcks-number-11-no-mac/"/>
+    <updated>2014-03-18T19:09:41-03:00</updated>
+    <id>http://anna-cruz.com/blog/2014/03/18/instalando-token-pcks-number-11-no-mac</id>
+    <content type="html"><![CDATA[<p>Essa semana eu me deparei com um pequeno problema: instalar meu e-cpf (certificado digital pessoal) no meu macbook, no meu caso ele é um token usb do tipo PCKS#11. Nesse post eu vou tentar explicar como
+conseguir fazer ele funcionar direitinho e bem rápido.</p>
+
+<!-- more -->
+
+
+<p>Um e-cpf para quem não sabe é um token usb ou smartcard que contém informações pessoais suas criptorgrafadas e serve para assinar digitalmente documentos
+além de poder ser usado para assinar a declaração do imposto de renda e recuperar informações de declarações antigas no site da receita federal. Para conseguir
+o seu, você tem que solicitar na <a href="http://www.receita.fazenda.gov.br/atendvirtual/informacoesbasicas/comoobter.htm">Receita Federal</a> e pagar uma taxa.</p>
+
+<p>A instalação do e-cpf começa com a instalação do driver do token, em geral esse driver vem no proprio token usb, basta escolher a sua plataforma e instalar ele (não
+colocar um passo a passo disso aqui, pois varia de token para token).</p>
+
+<p>Depois de instalados os drivers pode ser necessário baixar a cadeia de validação deles e instalar no browser, esse passo também depende do token e da entidade
+certificadora, então não há muito como dar um passo-a-passo, em geral tem-se estas informações quando você retira o seu token.</p>
+
+<p>Agora o pulo do gato, a informação que eu realmente dei uma penada pra fazer funcionar. Acontece que mesmo instalando o driver do token nem tudo que é necessário é instalado no mac, é necessário também instalar um serviço para que o token seja reconhecido
+e carregado como um certificado digital, para isto basta clicar neste link: <a href="http://smartcardservices.macosforge.org/trac/wiki/installers">SmartCard Services</a></p>
+
+<p>Para o e-cpf funcionar corretamente no safari e no firefox é necessário instalar o dispositivo de segurança e isso é feito apenas no firefox.</p>
+
+<p>Para isso vá em</p>
+
+<p><strong>Preferences > Avançado > Certificados > Dispositivos de Segurança</strong></p>
+
+<p>Depois vá em</p>
+
+<p><strong>Carregar</strong></p>
+
+<p>Então escolha o nome do módulo que você quer dar e vá em <strong>Procurar</strong> para apontar o arquivo, este deve ser um arquivo com o nome <em>libwdpkcs.dylib</em> depois disso
+basta clicar em <strong>Ok</strong> e pronto! O certificado digital já estará funcionando tanto no firefox quanto no chrome =)</p>
+]]></content>
+  </entry>
+  
+</feed>

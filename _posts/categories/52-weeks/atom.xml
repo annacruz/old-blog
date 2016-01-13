@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 52 Weeks | Anna Cruz]]></title>
+  <link href="http://anna-cruz.com/blog/categories/52-weeks/atom.xml" rel="self"/>
+  <link href="http://anna-cruz.com/"/>
+  <updated>2014-06-24T16:04:26-03:00</updated>
+  <id>http://anna-cruz.com/</id>
+  <author>
+    <name><![CDATA[Anna Cruz]]></name>
+    <email><![CDATA[anna.cruz@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[52 Weeks of Honey - Week 1]]></title>
+    <link href="http://anna-cruz.com/blog/2014/03/12/52-weeks-of-honey-week-1/"/>
+    <updated>2014-03-12T20:31:09-03:00</updated>
+    <id>http://anna-cruz.com/blog/2014/03/12/52-weeks-of-honey-week-1</id>
+    <content type="html"><![CDATA[<p>Navegando pelos meus feed, li um post no blog da <a href="http://annandasousa.com.br">Annanda</a> sobre a 52 weeks of Honey que nada mais é que uma vez por semana postar uma foto que eu tenha tirado e ache bacana.</p>
+
+<p>Como eu to querendo voltar a viver o blog, vou começar por isso.</p>
+
+<!-- more -->
+
+
+<p>Essa semana posto uma foto da cã da minha irmã, foto tirada com o meu celular após um gostoso passeio com ela ;)</p>
+
+<p>{% img center <a href="https://lh5.googleusercontent.com/-SRT3S4jqs9Y/UuAPEdPIZaI/AAAAAAAAB5o/qxviDzZ7ysw/w334-h594-no/IMG_20140122_163306946.jpg">https://lh5.googleusercontent.com/-SRT3S4jqs9Y/UuAPEdPIZaI/AAAAAAAAB5o/qxviDzZ7ysw/w334-h594-no/IMG_20140122_163306946.jpg</a> &ldquo;Tasha&rdquo; %}</p>
+]]></content>
+  </entry>
+  
+</feed>

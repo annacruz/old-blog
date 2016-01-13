@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Estudos | Anna Cruz]]></title>
+  <link href="http://anna-cruz.com/blog/categories/estudos/atom.xml" rel="self"/>
+  <link href="http://anna-cruz.com/"/>
+  <updated>2014-06-24T16:04:26-03:00</updated>
+  <id>http://anna-cruz.com/</id>
+  <author>
+    <name><![CDATA[Anna Cruz]]></name>
+    <email><![CDATA[anna.cruz@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Novos Estudos]]></title>
+    <link href="http://anna-cruz.com/blog/2013/04/12/novos-estudos/"/>
+    <updated>2013-04-12T04:26:00-03:00</updated>
+    <id>http://anna-cruz.com/blog/2013/04/12/novos-estudos</id>
+    <content type="html"><![CDATA[<p>Post apenas para registrar que hoje estou (re)começando a estudar algoritmos/estrutura de dados.</p>
+
+<p>Pode parecer meio esquisito isso pra alguém que já está formado em em vias de terminar o mestrado (pelo menos teoricamente), mas bem não é bem assim que a minha mente funciona&hellip; Quero melhorar e muito minhas habilidades de programação, quem me conhece sabe que eu passei boa parte do tempo estudando na verdade redes e coisas do gênero. Nos últimos tempos mais coisas me interessaram principalmente a área de algoritmos e cálculo e eu acho que chegou o momento.</p>
+
+<!-- more -->
+
+
+<p>Estou começando meu estudo por dois livros, um é o <a href="http://www.livrariasaraiva.com.br/produto/2659730/algoritmos/">Algoritmos</a> do S. Dasgupta, U. Vazirani e C. Papadimitriou o outro livro é o <a href="http://www.lulu.com/shop/view-cart.ep;jsessionid=13E92C15FE345A4D3CD07D5DF9AFCD52">Competitive Programming 2</a> do S. Halim e F. Halim. O primeiro livro é bem teorico e uma referência muito utilizada nos cursos de Ciência da computação e mesmo no mestrado em informática e afins, já o segundo é mais focado em programação para competições e como decidir mais &lsquo;rápido&rsquo; qual a melhor decisão.</p>
+
+<p>Neste meu estudo não pretendo utilizar só uma linguagem em especifico. Gosto muito de ruby e python, trabalho com java e bem o competitive programming é em C/C++ e eu pretendo aprender pelo menos minimamente. Bom eu vou por meus resultados por aqui e no uHunt, espero que as coisas caminhem bem. =)</p>
+]]></content>
+  </entry>
+  
+</feed>
