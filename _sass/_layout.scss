@@ -175,15 +175,6 @@
     font-size: 20px;
 }
 
-.post-list {
-    margin-left: 0;
-    list-style: none;
-
-    > li {
-        margin-bottom: $spacing-unit;
-    }
-}
-
 .post-meta {
     font-size: $small-font-size;
     color: $grey-color;
@@ -194,8 +185,27 @@
     font-size: 24px;
 }
 
+/**
+* Flexbox
+*/
 
+.flex-grid {
+  display: flex;
+  flex-flow: row wrap;
+}
 
+.box-item {
+    flex: 1 0 300px;
+    width: 300px;
+    height: 300px;
+    box-shadow: 10px 5px 5px $grey-color-light;
+    margin: $spacing-unit ;
+    float: left;
+    padding: 5px;
+    -moz-border-top-right-radius: 55px;
+    -webkit-border-top-right-radius: 55px;
+    border-top-right-radius: 55px;
+}
 /**
  * Posts
  */
